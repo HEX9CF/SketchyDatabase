@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 # 每个类别最多读取图片数量
-limit_per_class_train = 1
+limit_per_class_triplet = 10
 
 def find_classes(root):
     classes = [d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))]
@@ -20,7 +20,7 @@ def make_dataset(root):
     for cname in cnames:
         c_path = os.path.join(root, cname)
         if os.path.isdir(c_path):
-            fnames = os.listdir(c_path)[:limit_per_class_train]
+            fnames = os.listdir(c_path)[:limit_per_class_triplet]
             for fname in fnames:
                 path = os.path.join(c_path, fname)
                 images.append(path)

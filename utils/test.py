@@ -108,6 +108,7 @@ class Tester(object):
         count_5 = 0
         K = 5
         for ii, (query_sketch, query_name) in enumerate(zip(sketch_feature, sketch_name)):
+            # print(f'ii: {ii}, query_name: {query_name}')
             query_sketch = np.reshape(query_sketch, [1, np.shape(query_sketch)[0]])
 
             query_split = query_name.split('/')
@@ -117,6 +118,7 @@ class Tester(object):
             distance, indices = nbrs.kneighbors(query_sketch)
 
             for i, indice in enumerate(indices[0][:K]):
+                # print(f'i: {i}, indice: {indice}')
 
                 retrieved_name = photo_name[indice]
                 retrieved_class = retrieved_name.split('/')[0]

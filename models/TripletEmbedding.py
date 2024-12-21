@@ -121,15 +121,15 @@ class TripletNet(object):
         sketch_cat_loss_meter = AverageValueMeter()
         photo_cat_loss_meter = AverageValueMeter()
 
+        print("数据加载...")
         data_loader = TripleDataLoader(self.dataloader_opt)
         dataset = data_loader.load_data()
+        print("数据加载完成，数据集大小：", len(dataset))
 
         for epoch in range(self.epochs):
-
             print('---------------{0}---------------'.format(epoch))
 
             if self.test and epoch % self.test_f == 0:
-
                 tester_config = Config()
                 tester_config.test_bs = 128
                 tester_config.photo_net = photo_net
@@ -138,19 +138,25 @@ class TripletNet(object):
                 tester_config.photo_test = self.photo_test
                 tester_config.sketch_test = self.sketch_test
 
+                print("测试中...")
                 tester = Tester(tester_config)
                 test_result = tester.test_instance_recall()
+                print("测试完成")
 
                 result_key = list(test_result.keys())
                 vis.plot('recall', np.array([test_result[result_key[0]], test_result[result_key[1]]]),
                               legend=[result_key[0], result_key[1]])
-                if self.save_model:
-                    t.save(photo_net.state_dict(), self.save_dir + '/photo' + '/photo_' + self.net + '_%s.pth' % epoch)
-                    t.save(sketch_net.state_dict(), self.save_dir + '/sketch' + '/sketch_' + self.net + '_%s.pth' % epoch)
+
+            if self.save_model and  epoch % self.test_f == 0:
+                print("保存模型...")
+                t.save(photo_net.state_dict(), self.save_dir + '/photo' + '/photo_' + self.net + '_%s.pth' % epoch)
+                t.save(sketch_net.state_dict(), self.save_dir + '/sketch' + '/sketch_' + self.net + '_%s.pth' % epoch)
+                print("模型已保存")
 
             photo_net.train()
             sketch_net.train()
 
+            print("训练中...")
             for ii, data in enumerate(dataset):
 
                 photo_optimizer.zero_grad()
@@ -220,6 +226,8 @@ class TripletNet(object):
                 triplet_loss_meter.reset()
                 photo_cat_loss_meter.reset()
                 sketch_cat_loss_meter.reset()
+
+            print("训练完成")
 
 
 

@@ -11,6 +11,8 @@ def find_classes(root):
     class_to_idex = {classes[i]: i for i in range(len(classes))}
     return classes, class_to_idex
 
+# 每个类别最多读取图片数量
+limit_per_class = 10
 
 def make_dataset(root):
     images = []
@@ -19,7 +21,7 @@ def make_dataset(root):
     for cname in cnames:
         c_path = os.path.join(root, cname)
         if os.path.isdir(c_path):
-            fnames = os.listdir(c_path)
+            fnames = os.listdir(c_path)[:limit_per_class]
             for fname in fnames:
                 path = os.path.join(c_path, fname)
                 images.append(path)

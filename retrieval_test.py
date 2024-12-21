@@ -7,11 +7,11 @@ import torchvision.transforms as transforms
 from utils.visualize import Visualizer
 import tqdm
 
-PHOTO_ROOT = '/data1/zzl/dataset/photo-test'
-SKETCH_ROOT = '/data1/zzl/dataset/sketch-triplet-test'
+PHOTO_ROOT = 'data1/zzl/'
+SKETCH_ROOT = 'data1/zzl/'
 
-photo_data = pickle.load(open('feature/photo-resnet50_64-265.pkl', 'rb'))
-sketch_data = pickle.load(open('feature/sketch-resnet50_64-265.pkl', 'rb'))
+photo_data = pickle.load(open('feature/photo-resnet34-epoch.pkl', 'rb'))
+sketch_data = pickle.load(open('feature/sketch-resnet34-epoch.pkl', 'rb'))
 # print(photo_data['name'][0])
 photo_feature = photo_data['feature']
 photo_name = photo_data['name']

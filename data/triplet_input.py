@@ -12,7 +12,7 @@ def find_classes(root):
     return classes, class_to_idex
 
 # 每个类别最多读取图片数量
-limit_per_class = 10
+limit_per_class = 1
 
 def make_dataset(root):
     images = []
@@ -67,9 +67,12 @@ class TripleDataset(data.Dataset):
 
     def _getrelate_sketch(self, photo_path):
 
-        paths = photo_path.split('/')
-        fname = paths[-1].split('.')[0]
-        cname = paths[-2]
+        # paths = photo_path.split('/')
+        # fname = paths[-1].split('.')[0]
+        # cname = paths[-2]
+        fname = os.path.splitext(os.path.basename(photo_path))[0]
+        cname = os.path.basename(os.path.dirname(photo_path))
+        # print(f'fname: {fname}, cname: {cname}')
 
         label = self.class_to_idx[cname]
 

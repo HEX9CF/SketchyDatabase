@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 # 每个类别最多读取图片数量
-limit_per_class_triplet = 10
+limit_per_class_triplet = 100
 
 def find_classes(root):
     classes = [d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))]

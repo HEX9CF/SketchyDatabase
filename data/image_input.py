@@ -4,7 +4,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 # 每个类别最多读取图片数量
-limit_per_class_image = 1
+limit_per_class_image = 100
 
 def make_dataset(root):
     images = []
